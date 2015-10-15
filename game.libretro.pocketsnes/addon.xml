@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.pocketsnes"
+		name="SNES (Beetle bSNES)"
+		version="0.9.26"
+		provider-name="Libretro">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.snes" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+                   library_android="libgame.libretro.pocketsnes.so"
+                   library_linux="game.libretro.pocketsnes.so"
+                   library_osx="game.libretro.pocketsnes.dylib"
+                   library_windx="game.libretro.pocketsnes.dll"
+                   library_wingl="game.libretro.pocketsnes.dll">
+		<platforms>SNES</platforms>
+		<extensions>smc|fig|bs|st|sfc</extensions>
+		<supports_vfs>false</supports_vfs>
+		<supports_no_game>false</supports_no_game>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Beetle bSNES v0.9.26</summary>
+		<description>Beetle bSNES is the SNES module of Beetle, a fork of Mednafen. Mednafen's SNES module itself is a fork of bSNES v0.59.
+
+Supported files: .smc, .fig, .bs, .st, .sfc
+
+License: non-commercial</description>
+		<platform>all</platform>
+		<nofanart>true</nofanart>
+	</extension>
+</addon>

@@ -1,4 +1,4 @@
-project(beetle-pce-fast)
+project(pocketsnes)
 
 cmake_minimum_required(VERSION 2.6)
 
@@ -14,11 +14,11 @@ endif()
 
 if("${CORE_SYSTEM_NAME}" STREQUAL "windows")
   find_package(MinGW REQUIRED)
-  set(BUILD_COMMAND ${MINGW_MAKE} platform=win ${LIBRETRO_DEBUG})
+  set(BUILD_COMMAND ${MINGW_MAKE} -C libretro platform=win ${LIBRETRO_DEBUG})
 elseif("${CORE_SYSTEM_NAME}" STREQUAL "linux")
-  set(BUILD_COMMAND make ${LIBRETRO_DEBUG})
+  set(BUILD_COMMAND make -C libretro ${LIBRETRO_DEBUG})
 elseif("${CORE_SYSTEM_NAME}" STREQUAL "darwin" OR "${CORE_SYSTEM_NAME}" STREQUAL "osx")
-  set(BUILD_COMMAND make platform=osx ${LIBRETRO_DEBUG})
+  set(BUILD_COMMAND make -C libretro platform=osx ${LIBRETRO_DEBUG})
 elseif("${CORE_SYSTEM_NAME}" STREQUAL "ios")
   message(FATAL_ERROR "${PROJECT_NAME} needs IOS build command in CMakeLists.txt!")
 elseif("${CORE_SYSTEM_NAME}" STREQUAL "android")
@@ -31,17 +31,17 @@ else()
   message(FATAL_ERROR "${PROJECT_NAME} - Unknown system: ${CORE_SYSTEM_NAME}")
 endif()
 
-externalproject_add(beetle-pce-fast
+externalproject_add(${PROJECT_NAME}
                     SOURCE_DIR ${PROJECT_SOURCE_DIR}
-                    PREFIX beetle-pce-fast
+                    PREFIX ${PROJECT_NAME}
                     CONFIGURE_COMMAND ""
                     INSTALL_COMMAND ""
                     BUILD_COMMAND ${BUILD_COMMAND}
                     BUILD_IN_SOURCE 1)
 
 #install the generated shared library
-install(FILES ${PROJECT_SOURCE_DIR}/mednafen_pce_fast_libretro${CMAKE_SHARED_LIBRARY_SUFFIX}
+install(FILES ${PROJECT_SOURCE_DIR}/libretro/pocketsnes_libretro${CMAKE_SHARED_LIBRARY_SUFFIX}
         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-# write the beetle-pce-fast-config.cmake script
-file(WRITE ${CMAKE_INSTALL_PREFIX}/libretro-beetle-pce-fast-config.cmake "set(BEETLE_PCE_FAST_LIB ${CMAKE_INSTALL_PREFIX}/lib/mednafen_pce_fast_libretro${CMAKE_SHARED_LIBRARY_SUFFIX})")
+# write the config.cmake script
+file(WRITE ${CMAKE_INSTALL_PREFIX}/libretro-pocketsnes-config.cmake "set(SNES9X_LIB ${CMAKE_INSTALL_PREFIX}/lib/pocketsnes_libretro${CMAKE_SHARED_LIBRARY_SUFFIX})")

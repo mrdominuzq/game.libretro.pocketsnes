@@ -10,8 +10,8 @@ find_package(kodi REQUIRED)
 find_package(libretro-pocketsnes REQUIRED)
 
 set(DEPLIBS pocketsnes)
-set(POCKETSNES_CUSTOM_BINARY ${POCKETSNES_LIB}
-                                  game.libretro.pocketsnes${CMAKE_SHARED_LIBRARY_SUFFIX} pocketsnes)
+set(POCKETSNEs_CUSTOM_BINARY ${POCKETSNES_LIB}
+                         ${PROJECT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} pocketsnes)
 
-build_addon(game.libretro.pocketsnes BEETLE_PCE_FAST DEPLIBS)
+build_addon(${PROJECT_NAME} POCKETSNES DEPLIBS)
 
